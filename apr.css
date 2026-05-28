@@ -1,0 +1,127 @@
+* {
+    box-sizing: border-box;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+:root {
+    --verde: yellowgreen;
+    --verdeescuro: darkolivegreen;
+    --borda: rgb(254, 233, 6);
+}
+
+body {
+    background: var(--verdeescuro);
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+}
+
+.card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, .08);
+}
+
+span {
+    color: var(--verdeescuro);
+}
+
+h1 {
+    text-align: center;
+    color: var(--verde);
+}
+
+h2 {
+    font-size: 22px;
+    border-left: 5px solid var(--verdeescuro);
+    padding-left: 10px;
+    color: var(--verdeescuro);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 15px;
+}
+
+label {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--verde);
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid var(--verdeescuro);
+    border-radius: 4px;
+    color: yellowgreen;
+}
+
+textarea {
+    min-height: 120px;
+    resize: vertical;
+    border: var(--verdeescuro);
+    color: yellowgreen;
+}
+
+.checks label {
+    font-weight: normal;
+    margin-right: 15px;
+    color: yellowgreen;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th,
+td {
+    border: 1px solid var(--borda);
+    padding: 10px;
+    font-size: 18px;
+}
+
+th {
+    background: yellowgreen;
+    color: var(--verdeescuro);
+}
+
+.botoes {
+    text-align: center;
+}
+
+button {
+    background: var(--verdeescuro);
+    color: #CCC;
+    border: none;
+    padding: 12px 20px;
+    margin: 5px;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.9;
+    color: var(--verde);
+}
+
+@media print {
+    .botoes {
+        display: none;
+    }
+
+    body {
+        background: #fff;
+    }
+}

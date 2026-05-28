@@ -1,0 +1,108 @@
+body {
+    margin: 50px;
+    font-size: 14px;
+    background-color: darkslategrey;
+
+}
+
+h1 {
+    font-size: 50px;
+    margin-bottom: 2px;
+    font-family: 'Times New Roman', Times, serif;
+    margin-left: 350px;
+    color: rgb(254, 233, 6);
+    text-shadow: 1px 1px rgb(72, 163, 45);
+    margin-bottom: 20px;
+
+}
+
+strong {
+
+    color: yellowgreen;
+}
+
+a {
+    text-decoration: none;
+}
+
+a,
+strong:hover {
+    opacity: 0.8;
+
+}
+
+table {
+    width: 100%;
+    margin-top: 0;
+    color: green;
+
+}
+
+.topo {
+    background-color: green;
+    color: #EEE;
+    font-size: 17px;
+}
+
+th,
+td {
+    border: 1px solid #EEE;
+}
+
+.topo_2 {
+    background-color: green;
+    color: #EEE;
+}
+
+table thead {
+    background-color: whitesmoke;
+
+}
+
+tbody {
+    background-color: white;
+}
+
+th,
+td {
+    padding: 10px;
+}
+
+tbody tr:hover {
+    background-color: darkolivegreen;
+    color: rgb(254, 233, 6);
+}
+
+footer {
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    margin-top: 18px;
+    color: rgb(254, 233, 6);
+
+}
+
+a {
+    margin-left: 6px;
+    font-size: 18px;
+    color: yellowgreen;
+}
+
+a:hover {
+    font-size: 20px;
+    color: gold;
+}
+
+
+
+@media (min-width: 300px) and (max-width: 700px) {
+    h1 {
+        font-size: 17px;
+        margin-left: auto;
+    }
+
+    table {
+        width: auto;
+
+    }
+}

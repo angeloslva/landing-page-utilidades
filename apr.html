@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="apr.css">
+    <title>APR Digital</title>
+
+    <!-- jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="card">
+            <h1><span>APR</span> – Análise Preliminar de Risco</h1>
+        </div>
+
+        <div class="card">
+            <h2>Informações da Atividade</h2>
+            <div class="grid">
+                <div>
+                    <label>Tarefa</label>
+                    <input id="tarefa" value="Montagem de Válvulas">
+                </div>
+                <div>
+                    <label>Local</label>
+                    <input id="local" value="Utilidades">
+                </div>
+                <div>
+                    <label>Data</label>
+                    <input id="data" type="date">
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Permissões de Trabalho</h2>
+            <div class="checks">
+                <label><input type="checkbox"> Trabalho em Altura</label>
+                <label><input type="checkbox"> Içamento</label>
+                <label><input type="checkbox"> Espaço Confinado</label>
+                <label><input type="checkbox"> Bloqueio de Energia</label>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Análise de Risco</h2>
+            <table>
+                <tr>
+                    <th>Passo a Passo</th>
+                    <th>Riscos</th>
+                    <th>Medidas de Mitigação</th>
+                </tr>
+                <tr>
+                    <td><textarea id="passos">1. Preparação do canteiro
+2. Patolar munck
+3. Içar válvulas</textarea></td>
+
+                    <td><textarea id="riscos">1. Pessoas não autorizadas
+2. Atropelamento
+3. Queda de carga</textarea></td>
+
+                    <td><textarea id="medidas">1. Isolar área
+2. Seguir sinaleiro
+3. Conferir cintas</textarea></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>Responsáveis</h2>
+            <div class="grid">
+                <div>
+                    <label>Responsável pela Área</label>
+                    <input id="respArea">
+                    <label>Solicitante</label>
+                    <input id="solicitArea">
+                    <label>Aprovador</label>
+                    <input id="aprovArea">
+                    <label>Brigadista</label>
+                    <input id="brigadArea">
+                </div>
+                <div>
+                    <label>Executante 1</label>
+                    <input id="execArea_1">
+                    <label>Executante 2</label>
+                    <input id="execArea_2">
+                    <label>Executante 3</label>
+                    <input id="execArea3">
+                    <label>Executante 4</label>
+                    <input id="execArea4">
+                </div>
+            </div>
+        </div>
+
+        <div class="card botoes">
+            <button onclick="validarESalvar()">✔ Validar e Salvar PDF</button>
+            <button onclick="window.print()">🖨 Imprimir</button>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

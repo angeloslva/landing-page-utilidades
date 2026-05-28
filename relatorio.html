@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório Operacional Industrial</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Segoe UI, Arial;
+        }
+
+        body {
+            background: #0f172a;
+            color: #e2e8f0;
+            padding: 15px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #38bdf8;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            background: #1e293b;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section h2 {
+            color: #22c55e;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #334155;
+            padding-bottom: 5px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        label {
+            font-size: 13px;
+            color: #94a3b8;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 6px;
+            color: white;
+            margin-top: 4px;
+        }
+
+        textarea {
+            min-height: 100px;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 12px 18px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .btn-primary {
+            background: #0ea5e9;
+            color: white;
+        }
+
+        .btn-success {
+            background: #22c55e;
+            color: white;
+        }
+
+        .btn-warning {
+            background: #f59e0b;
+            color: white;
+        }
+
+        .relatorio {
+            margin-top: 30px;
+            background: #0f172a;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #334155;
+            display: none;
+            white-space: pre-line;
+        }
+
+        .extra-field {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>RELATÓRIO MOAGEM 2026</h1>
+
+    <div class="container">
+
+        <!-- MOAGEM -->
+        <div class="section">
+            <h2>Extração</h2>
+            <div class="grid">
+                <div><label>Moagem M2 (t/h)</label><input id="moagem2"></div>
+                <div><label>Moagem M3 (t/h)</label><input id="moagem3"></div>
+                <div><label>Moagem Acumulado M2 (Ton)</label><input id="acu_m2"></div>
+                <div><label>Moagem Acumulado M3 (Ton)</label><input id="acu_m3"></div>
+                <div><label>Embebição M2 (%)</label><input id="embeb2"></div>
+                <div><label>Embebição M3 (%)</label><input id="embeb3"></div>
+                <div><label>Fibra M2</label><input id="fibra2"></div>
+                <div><label>Fibra M3</label><input id="fibra3"></div>
+            </div>
+
+            <div class="section">
+                <h2>Informações Adicionais</h2>
+                <div class="camposExtras"></div>
+                <button class="btn-warning" onclick="adicionarCampo(this)">+ Adicionar Novo Quesito</button>
+            </div>
+
+            <div><label>OBSERVAÇÕES:</label><textarea id="obs_moagem"></textarea></div>
+        </div>
+
+        <!-- AÇÚCAR -->
+        <div class="section">
+            <h2>Produção de Açucar</h2>
+            <div class="grid">
+                <div><label>Prod. Açucar até agora (sc)</label><input id="prod_now"></div>
+                <div><label>Estimativa Produção dia (sc)</label><input id="prod_day"></div>
+            </div>
+
+            <div class="section">
+                <h2>Informações Adicionais</h2>
+                <div class="camposExtras"></div>
+                <button class="btn-warning" onclick="adicionarCampo(this)">+ Adicionar Novo Quesito</button>
+            </div>
+
+            <div><label>OBSERVAÇÕES:</label><textarea id="obs_acucar"></textarea></div>
+        </div>
+
+        <!-- ETANOL -->
+        <div class="section">
+            <h2>Produção Etanol</h2>
+            <div class="grid">
+                <div><label>Acumulado Até Agora (L)</label><input id="acu_now"></div>
+                <div><label>Estimativa Produção Dia</label><input id="est_day"></div>
+            </div>
+
+            <div class="section">
+                <h2>Informações Adicionais</h2>
+                <div class="camposExtras"></div>
+                <button class="btn-warning" onclick="adicionarCampo(this)">+ Adicionar Novo Quesito</button>
+            </div>
+
+            <div><label>OBSERVAÇÕES:</label><textarea id="obs_etanol"></textarea></div>
+        </div>
+
+        <!-- CALDEIRAS -->
+        <div class="section">
+            <h2>Utilidades e Energia</h2>
+            <div class="grid">
+                <div><label>Pot. Ativa TG5 (MW)</label><input id="pot5"></div>
+                <div><label>Pot. Ativa TG6 (MW)</label><input id="pot6"></div>
+                <div><label>Vz. Vapor Cald-5 (t/h)</label><input id="vz_vap5"></div>
+                <div><label>Temp. Vapor Cald-5 (°C)</label><input id="temp_vap6"></div>
+                <div><label>Vz. Vapor Cald-6 (t/h)</label><input id="vz_vap6"></div>
+                <div><label>Temp. Vapor Cald-6 (°C)</label><input id="temp_vap6"></div>
+                <div><label>Temp. Desaerador Cald-5 (°C)</label><input id="temp_desaer5"></div>
+                <div><label>Pressão Desaerador Cald-5 (kgf/cm²)</label><input id="pres_desaer5"></div>
+                <div><label>Temp. Desaerador Cald-6 (°C)</label><input id="temp_desaer6"></div>
+                <div><label>Pressão Desaerador Cald-6 (kgf/cm²)</label><input id="pres_desaer6"></div>
+                <div><label>Nível Tq. Desmi (%)</label><input id="desmi"></div>
+                <div><label>Nível Tq. Tratada (%)</label><input id="tratada"></div>
+                <div><label>Nível Cx. Água Bruta (%)</label><input id="agua_bruta"></div>
+            </div>
+
+            <div class="section">
+                <h2>Informações Adicionais</h2>
+                <div class="camposExtras"></div>
+                <button class="btn-warning" onclick="adicionarCampo(this)">+ Adicionar Novo Quesito</button>
+            </div>
+
+            <div><label>OBSERVAÇÕES:</label><textarea id="obs_caldeira"></textarea></div>
+        </div>
+
+        <!-- ENERGIA -->
+        <div class="section">
+            <h2>Prod. Energia no Turno</h2>
+            <div class="grid">
+                <div><label>Elektro (MW)</label><input id="elektro"></div>
+                <div><label>Corbion (MW)</label><input id="prodCorbion"></div>
+                <div><label>Consumo Interno Produção (MW)</label><input id="consInterProd"></div>
+                <div><label>Energia Comprada (MW)</label><input id="energ_comprada"></div>
+            </div>
+
+            <div class="section">
+                <h2>Informações Adicionais</h2>
+                <div class="camposExtras"></div>
+                <button class="btn-warning" onclick="adicionarCampo(this)">+ Adicionar Novo Quesito</button>
+            </div>
+        </div>
+
+        <button class="btn-primary" onclick="gerarRelatorio()">Gerar Relatório</button>
+        <button class="btn-success" onclick="gerarPDF()">Salvar PDF</button>
+
+        <div class="relatorio" id="relatorio"></div>
+
+    </div>
+
+    <script>
+
+        // ADICIONAR CAMPO
+        function adicionarCampo(botao) {
+            const container = botao.parentElement.querySelector(".camposExtras");
+
+            const div = document.createElement("div");
+            div.classList.add("extra-field");
+
+            div.innerHTML = `
+<input type="text" placeholder="Nome do Quesito" class="nomeExtra">
+<input type="text" placeholder="Valor / Informação" class="valorExtra">
+`;
+
+            container.appendChild(div);
+        }
+
+        // GERAR RELATÓRIO
+        function gerarRelatorio() {
+
+            let texto = "RELATÓRIO OPERACIONAL\n";
+            texto += "Data: " + new Date().toLocaleString("pt-BR") + "\n\n";
+
+            document.querySelectorAll(".section").forEach(sec => {
+
+                const titulo = sec.querySelector("h2");
+                if (!titulo) return;
+
+                texto += "=== " + titulo.innerText.toUpperCase() + " ===\n";
+
+                sec.querySelectorAll("input, textarea").forEach(campo => {
+                    if (campo.value && !campo.classList.contains("nomeExtra") && !campo.classList.contains("valorExtra")) {
+                        const label = campo.previousElementSibling?.innerText || campo.id;
+                        texto += label + ": " + campo.value + "\n";
+                    }
+                });
+
+                const nomes = sec.querySelectorAll(".nomeExtra");
+                const valores = sec.querySelectorAll(".valorExtra");
+
+                if (nomes.length) {
+                    texto += "\nExtras:\n";
+                    nomes.forEach((n, i) => {
+                        if (n.value) texto += "- " + n.value + ": " + valores[i].value + "\n";
+                    });
+                }
+
+                texto += "\n";
+
+            });
+
+            document.getElementById("relatorio").innerText = texto;
+            document.getElementById("relatorio").style.display = "block";
+        }
+
+        // PDF
+        async function gerarPDF() {
+
+            const texto = document.getElementById("relatorio").innerText;
+
+            if (!texto) {
+                alert("Gere o relatório primeiro!");
+                return;
+            }
+
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            doc.setFontSize(16);
+            doc.text("RELATÓRIO OPERACIONAL", 105, 15, { align: "center" });
+
+            doc.setFontSize(10);
+
+            const linhas = doc.splitTextToSize(texto, 180);
+            let y = 25;
+
+            linhas.forEach(linha => {
+                if (y > 280) { doc.addPage(); y = 20; }
+                doc.text(linha, 15, y);
+                y += 5;
+            });
+
+            doc.save("Relatorio.pdf");
+        }
+
+    </script>
+
+</body>
+
+</html>

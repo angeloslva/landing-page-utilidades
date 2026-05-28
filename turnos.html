@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Escala Folgas Utilidades</title>
+    <style>
+        :root {
+            --p: #2563eb;
+            --f: #fef08a;
+            --v: #bfdbfe;
+            --txt: #1e293b;
+            --cor-A: #10b981;
+            --cor-B: #3b82f6;
+            --cor-C: #8b5cf6;
+        }
+
+        body {
+            font-family: -apple-system, system-ui, sans-serif;
+            background: #f1f5f9;
+            margin: 0;
+            padding: 10px;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .card {
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .header-tools {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+            align-items: center;
+        }
+
+        input,
+        button,
+        select {
+            padding: 8px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 14px;
+            -webkit-appearance: none;
+        }
+
+        button {
+            background: var(--p);
+            color: white;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            touch-action: manipulation;
+        }
+
+        .tabela-scroll {
+            overflow-x: auto;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            min-width: 1200px;
+            background: white;
+        }
+
+        th,
+        td {
+            border: 1px solid #e2e8f0;
+            padding: 4px 2px;
+            text-align: center;
+            font-size: 10px;
+            height: 28px;
+        }
+
+        td:first-child,
+        th:first-child {
+            position: -webkit-sticky;
+            position: sticky;
+            left: 0;
+            background: white;
+            z-index: 10;
+            min-width: 160px;
+            text-align: left;
+            font-weight: bold;
+            border-right: 2px solid #e2e8f0;
+        }
+
+        .status-F {
+            background-color: var(--f) !important;
+            font-weight: bold;
+            opacity: 0.6;
+        }
+
+        .status-FE {
+            background-color: var(--v) !important;
+            font-weight: bold;
+            opacity: 0.6;
+        }
+
+        .dia-vazio {
+            opacity: 0.3;
+            font-size: 8.5px;
+            color: #64748b;
+        }
+
+        .t-A {
+            border-left: 3px solid var(--cor-A) !important;
+        }
+
+        .t-B {
+            border-left: 3px solid var(--cor-B) !important;
+        }
+
+        .t-C {
+            border-left: 3px solid var(--cor-C) !important;
+        }
+
+        .nome-A {
+            border-left: 6px solid var(--cor-A);
+        }
+
+        .nome-B {
+            border-left: 6px solid var(--cor-B);
+        }
+
+        .nome-C {
+            border-left: 6px solid var(--cor-C);
+        }
+
+        .fds {
+            color: #ef4444;
+            background: #fff1f2;
+        }
+
+        /* MODAL */
+        #modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 320px;
+        }
+
+        .modal-content label {
+            display: block;
+            margin-top: 10px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .modal-content input,
+        .modal-content select {
+            width: 100%;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+
+        .modal-btns {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        @media print {
+
+            .header-tools,
+            #modal {
+                display: none !important;
+            }
+
+            .tabela-scroll {
+                overflow: visible !important;
+            }
+
+            td:first-child,
+            th:first-child {
+                position: static;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card" onclick="void(0)">
+        <header
+            style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; flex-wrap: wrap;">
+            <h3 style="margin:0;">🗓️ Escala Mensal</h3>
+            <div class="header-tools">
+                <input type="month" id="mesFiltro" onchange="renderizar()">
+                <input type="text" id="buscaNome" placeholder="🔍 Buscar..." onkeyup="renderizar()">
+                <button onclick="abrirModalNovo()">+ Novo</button>
+                <button onclick="window.print()" style="background: #059669;">PDF</button>
+            </div>
+        </header>
+        <div class="tabela-scroll">
+            <table>
+                <thead>
+                    <tr id="headerDias"></tr>
+                </thead>
+                <tbody id="corpoEscala"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- MODAL -->
+    <div id="modal" onclick="if(event.target==this) fecharModal()">
+        <div class="modal-content">
+            <h4 id="modalTitle" style="margin:0 0 10px 0">Novo Funcionário</h4>
+            <label>Nome</label>
+            <input type="text" id="mNome" autocomplete="off">
+            <label>Turno Padrão</label>
+            <select id="mTurno">
+                <option value="A">Turno A</option>
+                <option value="B">Turno B</option>
+                <option value="C">Turno C</option>
+            </select>
+            <label>Escala</label>
+            <select id="mEscala">
+                <option value="5x1">5x1</option>
+                <option value="5x2">5x2</option>
+                <option value="4x2">4x2</option>
+                <option value="6x2">6x2</option>
+            </select>
+
+            <div class="modal-btns">
+                <button style="background:#64748b; width:100%" onclick="fecharModal()">Sair</button>
+                <button style="width:100%" onclick="salvarFuncionario()">Salvar</button>
+            </div>
+
+            <!-- Botão de Excluir com suporte a toque de iPhone -->
+            <button id="btnExcluir" style="background:#ef4444; width:100%; margin-top:15px; display:none; height:40px;"
+                ontouchstart="this.style.opacity='0.5'" ontouchend="this.style.opacity='1'; excluirFuncionario()">
+                🗑️ EXCLUIR DEFINITIVAMENTE
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Banco v33
+        let db = JSON.parse(localStorage.getItem('escala_v33')) || { funcionarios: [], alteracoes: {} };
+        let editandoId = null;
+        const diasSemanaLong = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+        const inputMes = document.getElementById('mesFiltro');
+        if (!inputMes.value) inputMes.value = new Date().toISOString().slice(0, 7);
+
+        function renderizar() {
+            const [ano, mes] = inputMes.value.split('-').map(Number);
+            const diasNoMes = new Date(ano, mes, 0).getDate();
+            const termo = document.getElementById('buscaNome').value.toLowerCase();
+
+            let h = '<th>Funcionário</th>';
+            for (let i = 1; i <= diasNoMes; i++) {
+                const dataObj = new Date(ano, mes - 1, i);
+                const fds = (dataObj.getDay() === 0 || dataObj.getDay() === 6) ? 'fds' : '';
+                h += `<th class="${fds}">${i}<br>${diasSemanaLong[dataObj.getDay()]}</th>`;
+            }
+            document.getElementById('headerDias').innerHTML = h;
+
+            const lista = db.funcionarios
+                .filter(f => f.nome.toLowerCase().includes(termo))
+                .sort((a, b) => a.turno.localeCompare(b.turno) || a.nome.localeCompare(b.nome));
+
+            let c = '';
+            lista.forEach(f => {
+                c += `<tr><td class="nome-${f.turno}" onclick="abrirModalEditar(${f.id})">${f.nome}</td>`;
+                for (let d = 1; d <= diasNoMes; d++) {
+                    const dataIso = `${ano}-${String(mes).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+                    const idChave = `${f.id}-${dataIso}`;
+                    const dataAtual = new Date(ano, mes - 1, d);
+                    let status = calcularLogica(f, dataAtual);
+                    let turnoEfetivo = f.turno;
+
+                    if (db.alteracoes[idChave]) {
+                        const alt = db.alteracoes[idChave];
+                        if (alt === 'F' || alt === 'FE') status = alt;
+                        else turnoEfetivo = alt;
+                    }
+
+                    let classe = (status === 'F') ? 'status-F' : (status === 'FE' ? 'status-FE' : 'dia-vazio');
+                    let display = (status === 'F' || status === 'FE') ? status : `${String(d).padStart(2, '0')}-${diasSemanaLong[dataAtual.getDay()]}`;
+                    c += `<td class="${classe} t-${turnoEfetivo}" onclick="menuDia(${f.id},'${dataIso}')">${display}</td>`;
+                }
+                c += `</tr>`;
+            });
+            document.getElementById('corpoEscala').innerHTML = c;
+            localStorage.setItem('escala_v33', JSON.stringify(db));
+        }
+
+        function calcularLogica(f, dataAlvo) {
+            if (f.escala === '5x2') return (dataAlvo.getDay() === 0 || dataAlvo.getDay() === 6) ? 'F' : 'T';
+            if (!f.data_referencia) return 'T';
+            const [y, m, d] = f.data_referencia.split('-').map(Number);
+            const diff = Math.floor((dataAlvo - new Date(y, m - 1, d)) / 864e5);
+            if (diff < 0) return 'T';
+            const ciclo = (f.escala === '6x2') ? 8 : 6;
+            const resto = diff % ciclo;
+            return (resto === 0 || (f.escala !== '5x1' && resto === 1)) ? 'F' : 'T';
+        }
+
+        function abrirModalNovo() {
+            editandoId = null;
+            document.getElementById('modalTitle').innerText = "Novo Funcionário";
+            document.getElementById('mNome').value = "";
+            document.getElementById('btnExcluir').style.display = 'none';
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function abrirModalEditar(id) {
+            editandoId = id;
+            const f = db.funcionarios.find(x => x.id === id);
+            document.getElementById('modalTitle').innerText = "Editar Funcionário";
+            document.getElementById('mNome').value = f.nome;
+            document.getElementById('mTurno').value = f.turno;
+            document.getElementById('mEscala').value = f.escala;
+            document.getElementById('btnExcluir').style.display = 'block';
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function fecharModal() { document.getElementById('modal').style.display = 'none'; }
+
+        function salvarFuncionario() {
+            const nome = document.getElementById('mNome').value;
+            if (!nome) return;
+            if (editandoId) {
+                const f = db.funcionarios.find(x => x.id === editandoId);
+                f.nome = nome; f.turno = document.getElementById('mTurno').value; f.escala = document.getElementById('mEscala').value;
+            } else {
+                db.funcionarios.push({ id: Date.now(), nome, turno: document.getElementById('mTurno').value, escala: document.getElementById('mEscala').value, data_referencia: null });
+            }
+            fecharModal(); renderizar();
+        }
+
+        function excluirFuncionario() {
+            // Em vez de confirm nativo (que trava o iOS), usamos a lógica direta
+            // O botão já é bem explícito no modal
+            db.funcionarios = db.funcionarios.filter(x => x.id !== editandoId);
+            Object.keys(db.alteracoes).forEach(key => { if (key.startsWith(editandoId + "-")) delete db.alteracoes[key]; });
+
+            localStorage.setItem('escala_v33', JSON.stringify(db));
+            fecharModal();
+            setTimeout(renderizar, 100);
+        }
+
+        function menuDia(fId, data) {
+            const op = prompt("1: INICIAR ESCALA | 2: FOLGA | 3: FÉRIAS | 4: TURNO (A,B,C) | 5: LIMPAR", "2");
+            if (op === "1") db.funcionarios.find(x => x.id === fId).data_referencia = data;
+            else if (op === "2") db.alteracoes[`${fId}-${data}`] = "F";
+            else if (op === "3") {
+                const [y, m, d] = data.split('-').map(Number);
+                for (let i = 0; i < 30; i++) {
+                    let dt = new Date(y, m - 1, d + i);
+                    const iso = `${dt.getFullYear()}-${String(dt.getMonth() + 1).padStart(2, '0')}-${String(dt.getDate()).padStart(2, '0')}`;
+                    db.alteracoes[`${fId}-${iso}`] = "FE";
+                }
+            } else if (op === "4") {
+                const t = prompt("Turno (A, B ou C):");
+                if (t && ['A', 'B', 'C'].includes(t.toUpperCase())) db.alteracoes[`${fId}-${data}`] = t.toUpperCase();
+            } else if (op === "5") delete db.alteracoes[`${fId}-${data}`];
+            renderizar();
+        }
+
+        renderizar();
+    </script>
+</body>
+
+</html>

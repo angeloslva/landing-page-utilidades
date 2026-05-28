@@ -1,0 +1,403 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: black;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 60px;
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+    z-index: 99;
+    background-color: rgba(44, 116, 44, 0.1);
+}
+
+.header_logo {
+    width: 60px;
+    height: 40px;
+}
+
+header span {
+    font-size: 30px;
+    color: white;
+    font-weight: 700;
+    margin-right: 60px;
+}
+
+header nav {
+    display: flex;
+    gap: 25px;
+}
+
+header nav a {
+    display: inline-block;
+    background-color: #009944;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 700;
+    box-shadow: 0 4px 15px rgba(0, 153, 68, 0.3);
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    cursor: pointer;
+
+}
+
+header nav a:hover {
+    background: #00b350;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 153, 68, 0.5);
+}
+
+header nav a:active {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0, 153, 68, 0.4);
+}
+
+
+.hero {
+    min-height: 80vh;
+    background: url(./images/img_caldeira.jpg) center / cover no-repeat;
+    padding: 30px 40px 80px;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+    position: relative;
+
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.6));
+}
+
+.hero-content {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 48px;
+    position: relative;
+    z-index: 1;
+}
+
+.hero-text {
+    max-width: 520px;
+}
+
+.hero-text h1 {
+    color: white;
+    font-size: 25px;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 32px;
+}
+
+.gold-rules {
+    padding: 60px 40px;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.daily-operation {
+    background-color: #00b350;
+}
+
+.daily-operation h4 {
+    color: #ffcc00;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+}
+
+.daily-operation ol,
+.daily-operation ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 700;
+
+}
+
+.daily-operation ol li,
+.daily-operation ul li {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 18px;
+    padding: 6px 0;
+}
+
+.card-section {
+    background-color: #00b350;
+    padding: 100px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 80px;
+}
+
+.work-card {
+    width: 360px;
+    height: 220px;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 20px 40px rgba(241, 234, 14, 0.5);
+    background: linear-gradient(135deg, #05140b 0%, #005f28 50%, #009944 80%, #ffcc00 100%);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 15px 35px rgba(0, 153, 68, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Efeito extra: Um reflexo de luz cortando o cartão */
+.work-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+    transform: skewX(-30deg);
+    transition: 0.7s;
+}
+
+.work-card:hover::after {
+    left: 150%;
+    /* Faz um brilho passar pelo cartão ao passar o mouse */
+}
+
+.card-chip {
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    height: 35px;
+    width: 45px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+.card-number {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 18px;
+    letter-spacing: 3px;
+}
+
+.card-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-info span {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.job {
+    color: #FFD700;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.card-info strong {
+    font-size: 24px;
+    color: #FFD700;
+}
+
+.card-text {
+    max-width: 480px;
+
+}
+
+.card-text h2 {
+    color: white;
+    font-weight: 800;
+    font-size: 40px;
+    margin-bottom: 16px;
+}
+
+.card-text p {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.7;
+    margin-bottom: 24px;
+}
+
+.btn-cta {
+    background-color: rgb(31, 105, 31);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 14px;
+    text-decoration: none;
+    transition: 0.6s;
+}
+
+.btn-cta:hover {
+    transform: translateY(-3px);
+    background: #e6df10;
+    color: green;
+    box-shadow: 0 8px 15px rgba(241, 234, 14, 0.5);
+}
+
+.risc {
+    padding: 100px 40px;
+    text-align: center;
+    background: linear-gradient(135deg, #349259 0%, #005f28 50%, #009944 80%);
+
+}
+
+.risc h2 {
+    color: white;
+    font-size: 36px;
+    font-weight: 800;
+    margin-bottom: 24px;
+}
+
+.risc .btn-risc {
+    display: inline-block;
+    background-color: #ffcc00;
+    color: green;
+    padding: 16px 40px;
+    border-radius: 40px;
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.6s;
+}
+
+.risc .btn-risc:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(241, 234, 14, 0.5);
+    background-color: rgb(48, 171, 79);
+    color: white;
+}
+
+footer {
+    margin-top: auto;
+    width: 100%;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 5%;
+    background: rgba(8, 18, 12, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+footer p {
+    font-size: 15px;
+    color: #64748b;
+}
+
+footer a {
+    text-decoration: none;
+    color: #94a3b8;
+    transition: color 0.2s ease;
+}
+
+footer a:hover {
+    color: #009944;
+}
+
+@media(max-width: 1024px) {
+    .card-section {
+        flex-direction: column;
+        text-align: center;
+        gap: 30px;
+    }
+
+    .card-text {
+        max-width: 100%;
+    }
+
+    .hero-text h1 {
+        font-size: 2.2rem;
+    }
+}
+
+@media(max-width: 768px) {
+    header {
+        height: auto;
+        flex-direction: column;
+        padding: 15px;
+        gap: 15px;
+        position: relative;
+    }
+
+    header nav {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+    }
+
+    header nav a {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+
+    .hero {
+        padding: 40px 5% 20px;
+    }
+
+    .hero-text h1 {
+        font-size: 1.8rem;
+        text-align: center;
+    }
+
+    .daily-operation {
+        padding: 24px;
+    }
+
+    .daily-operation ol {
+        column-count: 1;
+    }
+
+    .work-card {
+        width: 100%;
+        max-width: 340px;
+        height: 200px;
+        padding: 20px;
+    }
+
+    .card-text h2 {
+        font-size: 1.7rem;
+
+    }
+
+    .risc {
+        padding: 40px 5%;
+    }
+
+    .risc .btn-risc {
+        display: block;
+        margin: 10px auto;
+        max-width: 300px;
+    }
+}

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Anotações de Equipamentos</title>
+
+    <!-- jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f2f4f7;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: grid;
+            gap: 10px;
+        }
+
+        input,
+        textarea,
+        button {
+            padding: 10px;
+            font-size: 14px;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        button {
+            background: #1976d2;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        button.pdf {
+            background: #2e7d32;
+            margin-top: 15px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background: #e0e0e0;
+        }
+
+        .remove {
+            background: #c62828;
+            border: none;
+            color: #fff;
+            padding: 5px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+
+            table,
+            thead,
+            tbody,
+            th,
+            td,
+            tr {
+                display: block;
+            }
+
+            th {
+                display: none;
+            }
+
+            td {
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Anotações Utilidades</h1>
+
+        <form id="formRelatorio">
+            <input type="text" id="equipamento" placeholder="Nome do Equipamento/Material" required>
+            <input type="text" id="medida" placeholder="Medida (ex: DN Interno, DN Externo, Classe)">
+            <input type="text" id="codigo" placeholder="Código de Requisição">
+            <textarea id="observacao" placeholder="Observações"></textarea>
+            <button type="submit">Adicionar Registro</button>
+        </form>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Equipamento</th>
+                    <th>Medida</th>
+                    <th>Código</th>
+                    <th>Observações</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody id="tabelaRelatorio"></tbody>
+        </table>
+
+        <button class="pdf" onclick="gerarPDF()">Gerar PDF</button>
+    </div>
+
+    <script>
+        const form = document.getElementById("formRelatorio");
+        const tabela = document.getElementById("tabelaRelatorio");
+
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const equipamento = document.getElementById("equipamento").value;
+            const medida = document.getElementById("medida").value;
+            const codigo = document.getElementById("codigo").value;
+            const observacao = document.getElementById("observacao").value;
+
+            const linha = document.createElement("tr");
+
+            linha.innerHTML = `
+    <td>${equipamento}</td>
+    <td>${medida}</td>
+    <td>${codigo}</td>
+    <td>${observacao}</td>
+    <td><button class="remove" onclick="removerLinha(this)">X</button></td>
+  `;
+
+            tabela.appendChild(linha);
+            form.reset();
+        });
+
+        function removerLinha(botao) {
+            botao.closest("tr").remove();
+        }
+
+        function gerarPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            doc.text("Relatório de Anotações de Equipamentos", 10, 10);
+            let y = 20;
+
+            document.querySelectorAll("#tabelaRelatorio tr").forEach((linha, index) => {
+                const colunas = linha.querySelectorAll("td");
+
+                doc.text(`Equipamento: ${colunas[0].innerText}`, 10, y);
+                doc.text(`Medida: ${colunas[1].innerText}`, 10, y + 6);
+                doc.text(`Código: ${colunas[2].innerText}`, 10, y + 12);
+                doc.text(`Observações: ${colunas[3].innerText}`, 10, y + 18);
+
+                y += 30;
+                if (y > 270) {
+                    doc.addPage();
+                    y = 20;
+                }
+            });
+
+            doc.save("relatorio_equipamentos.pdf");
+        }
+    </script>
+
+</body>
+
+</html>
