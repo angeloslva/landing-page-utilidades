@@ -133,6 +133,8 @@ header nav a:active {
 
 .daily-operation ol,
 .daily-operation ul {
+    margin-left: 8px;
+    margin-right: 8px;
     list-style: none;
     display: flex;
     justify-content: space-between;
@@ -294,7 +296,7 @@ header nav a:active {
     transform: translateY(-3px);
     box-shadow: 0 8px 15px rgba(241, 234, 14, 0.5);
     background-color: rgb(48, 171, 79);
-    color: white;
+    color: #ffcc00;
 }
 
 footer {
@@ -312,7 +314,7 @@ footer {
 }
 
 footer p {
-    font-size: 15px;
+    font-size: 18px;
     color: #64748b;
 }
 
