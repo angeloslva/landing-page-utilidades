@@ -74,22 +74,22 @@ tbody tr:hover {
 }
 
 footer {
-    font-size: 20px;
+    font-size: 16px;
     display: flex;
     justify-content: center;
-    margin-top: 18px;
+    margin-top: 10px;
     color: rgb(254, 233, 6);
 
 }
 
 a {
     margin-left: 6px;
-    font-size: 18px;
-    color: yellowgreen;
+    font-size: 16px;
+    color: white;
+    transition: all 0.3s;
 }
 
 a:hover {
-    font-size: 20px;
     color: gold;
 }
 
