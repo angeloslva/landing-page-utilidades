@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeto-Tarefas</title>
+    <link rel="stylesheet" href="tarefas.css">
+</head>
+
+<body>
+    <main class="container">
+        <h1>Lista de Tarefas</h1>
+
+        <section class="card" id="input-card">
+            <form id="task-form">
+                <input id="task-input" type="text" placeholder="Digite uma nova tarefa..." autocomplete="off" required>
+                <button id="add-btn" type="submit">Adicionar</button>
+            </form>
+        </section>
+
+        <section class="card" id="list-card">
+            <ul id="task-list"></ul>
+            <p id="empty-state" class="empty">Nenhuma tarefa adicionada.</p>
+        </section>
+    </main>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-content">
+            <p>Criado por <a href="https://github.com/angeloslva" class="footer-link" target="_blank"
+                    rel="noopener noreferrer">AngeloDev</a></p>
+        </div>
+    </footer>
+
+    <script src="tarefas.js" defer></script>
+</body>
+
+</html>
