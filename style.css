@@ -307,7 +307,7 @@ footer {
     justify-content: center;
     align-items: center;
     padding: 0 5%;
-    background: rgba(8, 18, 12, 0.8);
+    background: rgba(9, 38, 21, 0.8);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-top: 1px solid rgba(255, 255, 255, 0.08);
@@ -325,7 +325,7 @@ footer a {
 }
 
 footer a:hover {
-    color: #009944;
+    color: #80ed04;
 }
 
 @media(max-width: 1024px) {
