@@ -314,18 +314,18 @@ footer {
 }
 
 footer p {
-    font-size: 18px;
+    font-size: 16px;
     color: #64748b;
 }
 
 footer a {
     text-decoration: none;
     color: #94a3b8;
-    transition: color 0.2s ease;
+    transition: color 0.4s ease;
 }
 
 footer a:hover {
-    color: #80ed04;
+    color: #ffcc00;
 }
 
 @media(max-width: 1024px) {
