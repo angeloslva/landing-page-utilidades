@@ -166,7 +166,6 @@ h1 {
 }
 
 .footer-link:hover {
-    text-decoration: underline;
     color: darkgoldenrod;
     opacity: 0.95;
 }
